@@ -1,11 +1,135 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sand Sort Puzzle</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sand Sort Puzzle - Premium</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      /* Prevent scrolling/layering issues */
+    }
+
+    body {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Dark Overlay for better contrast if needed, or just keep vibrant */
+
+    .header {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      margin-bottom: 20px;
+      padding: 0 10px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+    }
+
+    .tools button {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.1s;
+    }
+
+    .tools button:active {
+      transform: scale(0.95);
+    }
+
+    #gameCanvas {
+      /* Completely transparent to blend with body background */
+      background: transparent;
+      /* Remove border and shadows that create the 'card' look */
+      border: none;
+      box-shadow: none;
+      /* Optional: subtle internal glow or reflection could remain, but user asked for integration */
+      width: 100%;
+      height: auto;
+      max-width: 800px;
+      /* Ensure touch actions work */
+      touch-action: none;
+    }
+
+    .win-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .win-overlay h2 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    .win-overlay button {
+      padding: 15px 40px;
+      background: linear-gradient(45deg, #FF512F, #DD2476);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(221, 36, 118, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .win-overlay button:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
+
 <body>
   <div class="header">
     <h2>关卡: <span id="level">1</span></h2>
@@ -15,9 +139,9 @@
     </div>
   </div>
 
-  <div id="bottles" class="bottles"></div>
+  <canvas id="gameCanvas" width="800" height="500"></canvas>
 
-  <div id="winOverlay" class="win-overlay hidden">
+  <div id="winOverlay" class="win-overlay">
     <h2>🎉 通关成功！</h2>
     <button id="nextBtn">下一关</button>
   </div>
@@ -25,4 +149,5 @@
   <script src="../core/game.js"></script>
   <script src="main.js"></script>
 </body>
+
 </html>
