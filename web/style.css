@@ -1,66 +1,130 @@
+/* web/style.css - 升级版 UI */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --rim-color: rgba(255, 255, 255, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   background: linear-gradient(135deg, #00c6fb, #005bea);
   min-height: 100vh;
-  font-family: Arial, sans-serif;
-}
-
-.container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   padding: 20px;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  width: 100%;
+  max-width: 800px;
   color: white;
+  margin-bottom: 20px;
+  padding: 0 10px;
 }
 
 .tools button {
-  margin-left: 10px;
-  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--glass-border);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
   font-size: 14px;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tools button:active {
+  transform: scale(0.95);
 }
 
 .bottles {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .bottle {
   width: 80px;
-  height: 300px;
+  height: 320px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  cursor: pointer;
+  cursor: grab;
+  position: relative;
+}
+
+.bottle:active {
+  cursor: grabbing;
 }
 
 .tube {
-  width: 60px;
-  height: 250px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid white;
-  border-radius: 0 0 10px 10px;
+  width: 64px;
+  height: 260px;
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
+  border-radius: 0 0 12px 12px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.2),
+    inset 0 0 10px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+}
+
+/* 瓶口白边 */
+.tube::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -2px;
+  right: -2px;
+  height: 6px;
+  background: var(--rim-color);
+  border-radius: 6px 6px 0 0;
+  z-index: 2;
 }
 
 .liquid {
   width: 100%;
   position: absolute;
   bottom: 0;
-  transition: height 0.3s ease;
-  opacity: 0.9;
-  border-top: 1px solid rgba(255,255,255,0.3);
+  transition: height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0.92;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  /* 表面高光 */
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+/* 弯月面效果（顶部微凹） */
+.liquid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
 }
 
 .bottle.selected .tube {
   transform: scale(1.05);
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.4),
+    0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
 }
 
 .win-overlay {
@@ -69,25 +133,44 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0, 0, 0, 0.88);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
   z-index: 1000;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .win-overlay.hidden {
   display: none;
 }
 
+.win-overlay h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .win-overlay button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background: #12CBC4;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #12CBC4, #FDA7DF);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(18, 203, 196, 0.4);
+  transition: all 0.2s;
+}
+
+.win-overlay button:active {
+  transform: scale(0.96);
 }
