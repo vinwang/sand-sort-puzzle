@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #00c6fb, #005bea);
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.tools button {
+  margin-left: 10px;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.bottles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.bottle {
+  width: 80px;
+  height: 300px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  cursor: pointer;
+}
+
+.tube {
+  width: 60px;
+  height: 250px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid white;
+  border-radius: 0 0 10px 10px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+.liquid {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  transition: height 0.3s ease;
+  opacity: 0.9;
+  border-top: 1px solid rgba(255,255,255,0.3);
+}
+
+.bottle.selected .tube {
+  transform: scale(1.05);
+}
+
+.win-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 1000;
+}
+
+.win-overlay.hidden {
+  display: none;
+}
+
+.win-overlay button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #12CBC4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
